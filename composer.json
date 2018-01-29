@@ -1,7 +1,7 @@
 {
 	"name": "devture/symfony-email-template-bundle",
 	"type": "symfony-bundle",
-	"description": "Symfony bundle providing email templates management. Supports MongoDB, relational and gaufrette filesystem persistence.",
+	"description": "Symfony bundle providing Twig-based email-template management (persisted to the filesystem) and message preparation.",
 	"keywords": ["symfony", "bundle", "email", "template"],
 	"license": "BSD-3-Clause",
 	"authors": [{
