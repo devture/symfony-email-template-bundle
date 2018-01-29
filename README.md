@@ -82,7 +82,7 @@ devture_email_template:
 `email_wrapper_path` is a layout file for the actual email message. A sample one is provided in the bundle (`@DevtureEmailTemplateBundle/email-wrapper.html.twig`), but feel free to make your own.
 
 `webui_twig_layout_path` is the path to your layout file, which would contain the email template system's web UI.
-The only requirement is that it defines a `content` block. The translation system would render its content within it.
+The only requirement is that it defines a `content` block and a `js` block. The translation system would render its HTML content within the `content` block and its JS code within the `js` block.
 
 Example layout file:
 
@@ -92,6 +92,10 @@ Example layout file:
 	<body>
 		<h1>Website</h1>
 		{% block content %}{% endblock %}
+
+		<script type="text/javascript">
+			{% block js %}{% endblock %}
+		</script>
 	</body>
 </html>
 ```
