@@ -1,0 +1,51 @@
+{% block devture_email_template_tab_javascript %}
+	{% if isAdded %}
+		$('#js-btn-email-template-delete').on('click', function () {
+			if (confirm({{ ("devture_email_template.confirm_delete")|trans|json_encode|raw }})) {
+				$.ajax({
+					"url": {{ path('devture_email_template.delete', {'id': entity.id, 'token': devture_csrf_token('delete-article-' ~ entity.id)})|json_encode|raw }},
+					"type": "POST",
+					"dataType": "json",
+					"success": function (response) {
+						if (response.ok) {
+							window.location = {{ path('devture_email_template.manage')|json_encode|raw }};
+						} else {
+							alert("There was a problem. Refresh and retry.");
+						}
+					}
+				});
+			}
+			return false;
+		});
+	{% endif %}
+
+	{% block devture_email_template_js_editor_init %}
+		(function () {
+			var initializeCkEditor = function () {
+				$('.js-devture-email-textarea-ckeditor').each(function (idx) {
+					if (!$(this).attr('id')) {
+						$(this).attr('id', 'textarea_' + idx);
+					}
+
+					CKEDITOR.replace($(this).attr('id'), {
+						"entities": false,
+						"basicEntities": false,
+						"language": {{ app.request.locale|json_encode|raw }}
+					});
+				});
+			};
+
+			if (typeof(CKEDITOR) !== 'undefined') {
+				initializeCkEditor();
+				return;
+			}
+
+			if (typeof(comploader) !== 'undefined') {
+				comploader.load('ckeditor4', initializeCkEditor);
+				return;
+			}
+
+			throw new Error('Neither CKEDITOR, nor comploader were found on the page');
+		})();
+	{% endblock devture_email_template_js_editor_init %}
+{% endblock devture_email_template_tab_javascript %}

@@ -1,0 +1,41 @@
+{% if items|length == 0 %}
+	{{ ("devture_email_template.no_items")|trans }}
+{% else %}
+	<table class="table table-bordered table-striped table-sm">
+		<thead>
+			<tr>
+				<th>{{ ("devture_email_template.id")|trans }}</th>
+				<th>{{ ("devture_email_template.subject")|trans }}</th>
+				<th>{{ ("devture_email_template.memo")|trans }}</th>
+			</tr>
+		</thead>
+		<tbody>
+		{% for entity in items %}
+			{% set link = path('devture_email_template.edit', {'id': entity.id}) %}
+			<tr>
+				<td>
+					<a href="{{ link }}" class="display-block">
+						{{ entity.id }}
+					</a>
+				</td>
+				<td>
+					<a href="{{ link }}" class="display-block">
+						{% for locale_key in entity.locales|reverse %}
+							<span class="pull-right">
+								<i class="devture-email-template-flag {{ locale_key }}"></i>
+								&nbsp;
+							</span>
+						{% endfor %}
+						{{ entity.getSubject(app.request.locale)|default(entity.subjectFirst)|striptags|raw }}
+					</a>
+				</td>
+				<td>
+					<a href="{{ link }}" class="display-block">
+						{{ entity.getMemo(app.request.locale)|default(entity.memoFirst)|striptags|raw }}
+					</a>
+				</td>
+			</tr>
+		{% endfor %}
+		</tbody>
+	</table>
+{% endif %}

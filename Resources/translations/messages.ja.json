@@ -1,0 +1,25 @@
+{
+	"devture_email_template": {
+		"add_new": "新規追加",
+		"changes_saved": "保存しました。",
+		"confirm_delete": "テンプレートを削除してよろしいですか？",
+		"content": "内容",
+		"delete": "削除",
+		"id": "メール種別",
+		"memo": "メモ",
+		"message": {
+			"not_editable": "この画面ではメールテンプレートの編集はではきません。開発サイトから編集をお試しください。"
+		},
+		"no_items": "テンプレートがありません。",
+		"save": "保存",
+		"subject": "メール件名",
+		"templates": "メールテンプレート",
+		"validation": {
+			"id_in_use": "このキーは他のテンプレートで使用中です。",
+			"invalid_id": "キーが正しくありません。",
+			"invalid_template_syntax": "値が不適切です。",
+			"not_localized": "タイトルを入力してください。",
+			"one_or_more_errors_below": "以下のエラーが発生しました。"
+		}
+	}
+}

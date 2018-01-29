@@ -1,0 +1,58 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Devture\Bundle\EmailTemplateBundle\:
+    resource: '../../*'
+    exclude: '../../{Entity,Model,Migrations,Tests}'
+
+  Devture\Bundle\EmailTemplateBundle\Controller\:
+    resource: '../../Controller'
+    tags: ['controller.service_arguments']
+
+  Devture\Bundle\EmailTemplateBundle\Controller\ManagementController:
+    arguments:
+      $locales: "%devture_email_template_config.locales%"
+      $editable: "%devture_email_template_config.editable%"
+      $twigLayoutPath: "%devture_email_template_config.webui_twig_layout_path%"
+
+  devture_email_template.gaufrette.adapter:
+    class: Gaufrette\Adapter\Local
+    arguments: ['%devture_email_template_config.email_template_storage_path%']
+
+  devture_email_template.gaufrette.filesystem:
+    class: Gaufrette\Filesystem
+    arguments: ['@devture_email_template.gaufrette.adapter']
+
+  Devture\Bundle\EmailTemplateBundle\Repository\Filesystem\EmailTemplateRepository:
+    arguments:
+      $filesystem: '@devture_email_template.gaufrette.filesystem'
+
+  Devture\Bundle\EmailTemplateBundle\Repository\EmailTemplateRepositoryInterface:
+    alias: Devture\Bundle\EmailTemplateBundle\Repository\Filesystem\EmailTemplateRepository
+
+  Devture\Bundle\EmailTemplateBundle\Validator\EmailTemplateValidator:
+    arguments:
+      $locales: "%devture_email_template_config.locales%"
+
+  Devture\Bundle\EmailTemplateBundle\Form\EmailTemplateFormBinder:
+    arguments:
+      $validator: '@Devture\Bundle\EmailTemplateBundle\Validator\EmailTemplateValidator'
+      $locales: "%devture_email_template_config.locales%"
+
+  Devture\Bundle\EmailTemplateBundle\Helper\TemplateRendererFactory:
+    arguments:
+      $fallbackLocaleKey: "%devture_email_template_config.fallback_locale_key%"
+      $twigDebug: "%kernel.debug%"
+    calls:
+      # By default, we register everything tagged for us (with `devture_email_template.twig.extension`),
+      # but also a few helpful extensions from symfony/twig-bundle.
+      - [addExtension, ['@twig.extension.trans']]
+      - [addExtension, ['@twig.extension.routing']]
+      - [addExtensions, [!tagged devture_email_template.twig.extension]]
+
+  Devture\Bundle\EmailTemplateBundle\Helper\MessageCreator:
+    arguments:
+      $wrappingTemplatePath: "%devture_email_template_config.email_wrapper_path%"

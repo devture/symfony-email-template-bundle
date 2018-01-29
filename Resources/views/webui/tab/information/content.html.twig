@@ -1,0 +1,100 @@
+{% macro article_subject(entity, form, editable, localeKey) %}
+<div class="form-group row">
+	<label class="col-lg-2"><i class="devture-email-template-flag {{ localeKey }}"></i> {{ ("devture_email_template.subject")|trans }}</label>
+	<div class="col-lg-10">
+		<input type="text" name="subject[{{ localeKey }}]" id="subject_{{ localeKey }}"
+			value="{{ entity.getSubject(localeKey) }}"
+		{% if not editable %}readonly="readonly"{% endif %}
+			class="form-control" />
+		{{ devture_form_render_violations(form, 'subject_' ~ localeKey) }}
+	</div>
+</div>
+{% endmacro %}
+
+{% macro article_content(entity, form, editable, localeKey) %}
+<div class="form-group row">
+	<label class="col-lg-2"><i class="devture-email-template-flag {{ localeKey }}"></i> {{ ("devture_email_template.content")|trans }}</label>
+	<div class="col-lg-10">
+		<textarea class="form-control js-devture-email-textarea-ckeditor js-skip-autoresize" data-height="350" name="content[{{ localeKey }}]" id="content_{{ localeKey }}"
+			style="width: 480px; height: 200px;"
+			{% if not editable %}readonly="readonly"{% endif %}
+			>{{ entity.getContent(localeKey) }}</textarea>
+		{{ devture_form_render_violations(form, 'content_' ~ localeKey) }}
+	</div>
+</div>
+{% endmacro %}
+
+{% macro article_memo(entity, form, editable, localeKey) %}
+	<div class="form-group row">
+		<label class="col-lg-2"><i class="devture-email-template-flag {{ localeKey }}"></i> {{ ("devture_email_template.memo")|trans }}</label>
+		<div class="col-lg-10">
+			<input type="text" name="memo[{{ localeKey }}]" id="memo_{{ localeKey }}"
+				   value="{{ entity.getMemo(localeKey) }}"
+				   {% if not editable %}readonly="readonly"{% endif %}
+				   class="form-control" />
+			{{ devture_form_render_violations(form, 'memo_' ~ localeKey) }}
+		</div>
+	</div>
+{% endmacro %}
+
+{% import _self as self %}
+
+{% block devture_email_template_tab_content %}
+	{% if form.violations|length > 0 %}
+		<p class="alert alert-danger">
+			<i class="fa fa-exclamation-triangle"></i>
+            {{ ('devture_email_template.validation.one_or_more_errors_below')|trans }}
+		</p>
+	{% endif %}
+
+	{{ devture_form_render_violations(form, '__other__') }}
+
+	<form name="record-form" id="record-form" class="form-horizontal" method="post" action="">
+		{{ devture_form_render_csrf_token(form) }}
+
+		<fieldset>
+		{% block devture_email_template_fieldset %}
+			<div class="form-group row">
+				<label class="col-lg-2">{{ ('devture_email_template.id')|trans }}</label>
+				<div class="col-lg-10">
+					<input type="text" style="width: 50%;" name="id" id="id" value="{{ entity.id }}" class="form-control"
+						{{ isAdded ? 'disabled="disabled"' : '' }} />
+					{{ devture_form_render_violations(form, 'id') }}
+				</div>
+			</div>
+
+			{% block devture_email_template_control_group_memo %}
+                {% for localeData in locales %}
+					{{ self.article_memo(entity, form, editable, localeData['key']) }}
+				{% endfor %}
+			{% endblock %}
+
+			{% block devture_email_template_control_group_subject %}
+				{% for localeData in locales %}
+					{{ self.article_subject(entity, form, editable, localeData['key']) }}
+				{% endfor %}
+			{% endblock %}
+
+			{% block devture_email_template_control_group_content %}
+                {% for localeData in locales %}
+					{{ self.article_content(entity, form, editable, localeData['key']) }}
+				{% endfor %}
+			{% endblock %}
+
+			{% if editable %}
+				<div class="text-center">
+					<button type="submit" class="btn btn-primary btn-lg">
+						{{ ("devture_email_template.save")|trans }}
+					</button>
+
+					{% if isAdded %}
+					<button class="btn btn-danger btn-outline-danger btn-sm" style="margin-left: 50px;" id="js-btn-email-template-delete">
+						{{ ("devture_email_template.delete")|trans }}
+					</button>
+					{% endif %}
+				</div>
+			{% endif %}
+			{% endblock devture_email_template_fieldset %}
+		</fieldset>
+	</form>
+{% endblock devture_email_template_tab_content %}

@@ -1,0 +1,25 @@
+{
+	"devture_email_template": {
+		"no_items": "No templates.",
+		"templates": "Email Templates",
+		"add_new": "Add new",
+		"subject": "Subject",
+		"content": "Content",
+		"save": "Save",
+		"delete": "Delete",
+		"changes_saved": "Changes have been saved.",
+		"confirm_delete": "Delete template?",
+		"id": "Key",
+		"memo": "Memo",
+		"message": {
+			"not_editable": "This environment does not allow editing Email Templates. Perhaps you should try on the development server."
+		},
+		"validation": {
+			"invalid_template_syntax": "This value has an invalid template syntax.",
+			"one_or_more_errors_below": "One or more errors occurred below.",
+			"not_localized": "There is no data for any of the languages.",
+			"id_in_use": "Key is in use by another template.",
+			"invalid_id": "Invalid key."
+		}
+	}
+}

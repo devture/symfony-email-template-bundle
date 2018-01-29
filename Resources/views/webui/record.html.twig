@@ -1,0 +1,39 @@
+{% extends '@DevtureEmailTemplate/webui/layout.html.twig' %}
+
+{% block devture_email_template_content %}
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item">
+			<a href="{{ path('devture_email_template.manage') }}">{{ 'devture_email_template.templates'|trans }}</a>
+		</li>
+
+		{% if isAdded %}
+			<li class="breadcrumb-item active">{{ entity.id }}</li>
+		{% else %}
+			<li class="breadcrumb-item active">{{ 'devture_email_template.add_new'|trans }}</li>
+		{% endif %}
+	</ol>
+
+	{% if flashSuccess and form.violations|length == 0 %}
+		<div class="alert alert-success">
+			<i class="fa fa-check"></i>
+			{{ ("devture_email_template.changes_saved")|trans }}
+		</div>
+	{% endif %}
+
+	{%
+		include '@DevtureEmailTemplate/webui/tab/information/content.html.twig'
+		with {
+			'editable': editable,
+			'locales': locales,
+			'form': form,
+			'entity': entity,
+			'isAdded': isAdded,
+		} only
+	%}
+{% endblock %}
+
+{% block js %}
+	{{ parent() }}
+
+	{% include '@DevtureEmailTemplate/webui/tab/information/javascript.js.twig' %}
+{% endblock %}

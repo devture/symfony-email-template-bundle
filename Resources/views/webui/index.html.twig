@@ -1,0 +1,14 @@
+{% extends '@DevtureEmailTemplate/webui/layout.html.twig' %}
+
+{% block devture_email_template_content %}
+	{% if editable %}
+		<div class="clearfix mb-2">
+			<a class="btn btn-primary pull-right" href="{{ path('devture_email_template.add') }}">
+				<i class="fa fa-plus"></i>
+				{{ 'devture_email_template.add_new'|trans }}
+			</a>
+		</div>
+	{% endif %}
+
+	{% include '@DevtureEmailTemplate/webui/list.html.twig' with {'items': items} %}
+{% endblock %}

@@ -1,0 +1,19 @@
+{
+	"devture_email_template.add_new": "acda6ccaebc54a3b083ee6fa7e1ece1d0d0b768fd9924cf312142e43c24d62c0",
+	"devture_email_template.changes_saved": "14768a664077587da1c66447a123492435347bb7dcdda2d5c5a00a0af840221c",
+	"devture_email_template.confirm_delete": "e1d84431b90505a9544758496b26a2d00b62c1fcac3a99caee4c659816f65f75",
+	"devture_email_template.content": "47bd29075f8b8019f0beec6d86beda7c9bf67aaf05053dcbe0b3bcb63968517f",
+	"devture_email_template.delete": "e2d0a54968ead24efc0dffa6ac78fc606dceec34a0f586177a74a54cc2272cf8",
+	"devture_email_template.id": "99a52df3ff3d499488e2fa28150c4106a2cb5e928891a830a9aa3922b2d32160",
+	"devture_email_template.memo": "64cecb8a6ef3f808e1ce69388bea6e394d9cbcecd7b678f2e7be32624ebe0d28",
+	"devture_email_template.message.not_editable": "63ec5df8b7c31453a10912fc85c150d82e9bc7362d8b043503688b98aaded582",
+	"devture_email_template.no_items": "1c9dddadddb3b9fde548797ba4fc4d90ec030a9485cf36b8515bf0ad3bb23655",
+	"devture_email_template.save": "1509f561f2416598629b886ad7d3c05a7e221e4e0675c84bbff4ee6d9e03913d",
+	"devture_email_template.subject": "68971283841aecdf1da48428849b3b33164ec5c41d0f3c4d6cea624db5aff8f2",
+	"devture_email_template.templates": "d83b17a9faf253c4930e15d498dcda164a5feb40ebdcbe14eb8a66d293e005db",
+	"devture_email_template.validation.id_in_use": "b78670d6a8988567c9decf624bcd9cc9c945c5fdb84232d9411c0f448f7ddb3f",
+	"devture_email_template.validation.invalid_id": "13f34c8fda9eeeb3eef8e226a040522003695e8e0955e510146832c21b022bdb",
+	"devture_email_template.validation.invalid_template_syntax": "c62460b67e776a3bc6ae5d14daa62c34719787913205a74f26146d7d1aa3fc0a",
+	"devture_email_template.validation.not_localized": "3ffe3034ae2db881204a35683fce50cd93935a693a683716157aaafcf4594884",
+	"devture_email_template.validation.one_or_more_errors_below": "7e97a7ad0ead0b83dd9bb868fab2d94929e80ea59fe3bb0b13648d4d92589e19"
+}
