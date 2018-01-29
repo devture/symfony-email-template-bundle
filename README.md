@@ -195,6 +195,10 @@ class UserRegistrationController extends AbstractController {
 		];
 		$message = $messageCreator->createMessage('user/registered', $request->getLocale(), $templateData);
 
+		//Set these..
+		$message->setFrom($senderAddress);
+		$message->setTo([$receiverAddress]);
+
 		$mailer->send($message);
 	}
 
