@@ -68,7 +68,7 @@ devture_email_template:
     - {"key": "en", "name": "English"}
     - {"key": "ja", "name": "Japanese"}
   fallback_locale_key: en
-  email_wrapper_path: "@DevtureEmailTemplateBundle/email-wrapper.html.twig"
+  email_wrapper_path: "@DevtureEmailTemplate/email-wrapper.html.twig"
   webui_twig_layout_path: "base.html.twig"
   editable: "%kernel.debug%"
 ```
@@ -79,7 +79,7 @@ devture_email_template:
 
 `fallback_locale_key` specifies which language to fall back to in case a template is not available in the language requested.
 
-`email_wrapper_path` is a layout file for the actual email message. A sample one is provided in the bundle (`@DevtureEmailTemplateBundle/email-wrapper.html.twig`), but feel free to make your own.
+`email_wrapper_path` is a layout file for the actual email message. A sample one is provided in the bundle (`@DevtureEmailTemplate/email-wrapper.html.twig`), but feel free to make your own.
 
 `webui_twig_layout_path` is the path to your layout file, which would contain the email template system's web UI.
 The only requirement is that it defines a `content` block and a `js` block. The translation system would render its HTML content within the `content` block and its JS code within the `js` block.
