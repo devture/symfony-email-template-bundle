@@ -12,6 +12,40 @@ The templates are stored on the filesystem as [YAML](https://en.wikipedia.org/wi
 This allows you to version-control them along with your project's source code.
 
 
+# Prerequisites
+
+This bundles depends on [devture/form](https://packagist.org/packages/devture/form).
+
+Before you can get this bundle working, you'd need a working `devture/form` setup.
+
+Minimally, you need to define the following services somewhere (possibly in a `devture-form.yaml` file in your `AppBundle`):
+
+```yaml
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Devture\Component\Form\Token\TemporaryTokenManager:
+    arguments:
+      $validityTime: 3600
+      $secret: "%env(APP_SECRET)%"
+      $hashFunction: sha256
+
+  Devture\Component\Form\Token\TokenManagerInterface:
+    alias: Devture\Component\Form\Token\TemporaryTokenManager
+
+  Devture\Component\Form\Twig\FormExtension:
+    tags: [twig.extension]
+
+  Devture\Component\Form\Twig\TokenExtension:
+    tags: [twig.extension]
+```
+
+Additionally, your `config/packages/twig.yaml` needs to have this additional path added to it: `"%kernel.project_dir%/vendor/devture/form/src/Devture/Component/Form/Resources/views"`
+
+
 # Installation
 
 Install through composer (`composer require devture/symfony-email-template-bundle`).
@@ -129,7 +163,7 @@ Additionally, you can make the pages look prettier by including a flag icon for 
 </style>
 ```
 
-## Usage
+# Usage
 
 Suppose you have created a template called `user/registered`, which contains some content like this:
 
