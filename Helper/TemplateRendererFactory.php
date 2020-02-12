@@ -79,7 +79,7 @@ class TemplateRendererFactory {
 			//Force load all templates now, so we can fail at "renderer creation"
 			//if some template is broken, and not during rendering.
 			foreach (array_keys($templates) as $name) {
-				$twig->loadTemplate($name);
+				$twig->load($name);
 			}
 		} catch (\Twig\Error\SyntaxError $e) {
 			$fieldName = str_replace($templateKeyPrefix . '_', '', $name);
