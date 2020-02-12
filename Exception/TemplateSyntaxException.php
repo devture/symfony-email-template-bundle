@@ -15,7 +15,7 @@ class TemplateSyntaxException extends \Exception {
 
 	private $localeKey;
 
-	public function __construct(string $templateId, string $fieldName, string $localeKey, \Twig_Error_Syntax $e) {
+	public function __construct(string $templateId, string $fieldName, string $localeKey, \Twig\Error\SyntaxError $e) {
 		parent::__construct($e->getMessage(), $e->getCode(), $e);
 		$this->templateId = $templateId;
 		$this->fieldName = $fieldName;

@@ -14,7 +14,7 @@ class TemplateRendererFactory {
 	private $twigDebug = false;
 
 	/**
-	 * @var \Twig_Extension[]
+	 * @var \Twig\Extension\ExtensionInterface[]
 	 */
 	private $twigExtensions = array();
 
@@ -71,7 +71,7 @@ class TemplateRendererFactory {
 			$templateKeyPrefix . '_subject' => (string) $subject,
 			$templateKeyPrefix . '_content' => (string) $content,
 		);
-		$loader = new \Twig_Loader_Array($templates);
+		$loader = new \Twig\Loader\ArrayLoader($templates);
 
 		$twig = $this->createTwigEnvironment($loader);
 
@@ -81,7 +81,7 @@ class TemplateRendererFactory {
 			foreach (array_keys($templates) as $name) {
 				$twig->loadTemplate($name);
 			}
-		} catch (\Twig_Error_Syntax $e) {
+		} catch (\Twig\Error\SyntaxError $e) {
 			$fieldName = str_replace($templateKeyPrefix . '_', '', $name);
 			throw new TemplateSyntaxException($templateKeyPrefix, $fieldName, $localeKey, $e);
 		}
@@ -92,11 +92,11 @@ class TemplateRendererFactory {
 	/**
 	 * Creates and initializes the Twig environment that would render a specific template.
 	 *
-	 * @param \Twig_LoaderInterface $loader
-	 * @return \Twig_Environment
+	 * @param \Twig\Loader\LoaderInterface $loader
+	 * @return \Twig\Environment
 	 */
-	private function createTwigEnvironment(\Twig_LoaderInterface $loader) {
-		$twig = new \Twig_Environment($loader, array());
+	private function createTwigEnvironment(\Twig\Loader\LoaderInterface $loader) {
+		$twig = new \Twig\Environment($loader, array());
 
 		//Let's make it throw exceptions whenever expected variables are missing,
 		//so that we can easily catch such template mistakes.
@@ -110,7 +110,7 @@ class TemplateRendererFactory {
 			$twig->addExtension($extension);
 		}
 
-		$twig->addFunction(new \Twig_SimpleFunction('devture_email_template_render_content', function ($templateId, $localeKey, array $data = array()) {
+		$twig->addFunction(new \Twig\TwigFunction('devture_email_template_render_content', function ($templateId, $localeKey, array $data = array()) {
 			$renderer = $this->createRendererById($templateId, $localeKey);
 			$data['localeKey'] = $localeKey;
 			return $renderer->renderContent($data);
@@ -126,7 +126,7 @@ class TemplateRendererFactory {
 	 *
 	 * Extenders could use this to add their own custom extensions.
 	 */
-	public function addExtension(\Twig_Extension $extension) {
+	public function addExtension(\Twig\Extension\ExtensionInterface $extension) {
 		$this->twigExtensions[] = $extension;
 	}
 

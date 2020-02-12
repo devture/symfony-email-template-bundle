@@ -11,7 +11,7 @@ class MessageCreator {
 
 	public function __construct(
 		TemplateRendererFactory $factory,
-		\Twig_Environment $twig,
+		\Twig\Environment $twig,
 		string $wrappingTemplatePath
 	) {
 		$this->factory = $factory;
@@ -30,7 +30,7 @@ class MessageCreator {
 	/**
 	 * @throws NotFound - when the template cannot be found
 	 * @throws \Devture\Bundle\EmailTemplateBundle\Exception\TemplateSyntaxException
-	 * @throws \Twig_Error_Runtime - if template rendering fails (missing variables, etc.)
+	 * @throws \Twig\Error\RuntimeError - if template rendering fails (missing variables, etc.)
 	 */
 	public function createMessage(string $templateId, string $localeKey, array $templateData): \Swift_Message {
 		$renderer = $this->createRendererById($templateId, $localeKey, /* $allowFallbackLocale */ true);
@@ -38,7 +38,7 @@ class MessageCreator {
 	}
 
 	/**
-	 * @throws \Twig_Error_Runtime - if template rendering fails (missing variables, etc.)
+	 * @throws \Twig\Error\RuntimeError - if template rendering fails (missing variables, etc.)
 	 */
 	public function createMessageByRenderer(TemplateRenderer $renderer, string $localeKey, array $templateData): \Swift_Message {
 		//Let's make sure we pass the localeKey to the templates,
