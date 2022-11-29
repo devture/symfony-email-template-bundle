@@ -10,8 +10,8 @@
 		}
 	],
 	"require": {
-		"symfony/yaml": ">=3.1,<6.0-dev",
-		"symfony/twig-bundle": ">=3.0,<6.0-dev",
+		"symfony/yaml": ">=3.1,<7.0-dev",
+		"symfony/twig-bundle": ">=3.0,<7.0-dev",
 		"swiftmailer/swiftmailer": ">=6.0,<7.0-dev",
 		"html2text/html2text": ">=2.0,<5.0-dev",
 		"devture/dbal": ">=1.0,<1.3",
