@@ -3,7 +3,7 @@
 Bundle providing:
 
 - a web UI for managing email templates
-- system for preparing [Swift](https://swiftmailer.symfony.com/) email messages out of these templates. See [Usage](#usage).
+- system for preparing [symfony/mailer](https://symfony.com/doc/current/mailer.html) email messages out of these templates. See [Usage](#usage).
 
 Email Templates managed by this bundle are [Twig](http://twig.sensiolabs.org/) templates,
 which you edit through the web UI. Each "template" can be localized to multiple languages.
@@ -187,7 +187,7 @@ use Devture\Bundle\EmailTemplateBundle\Helper\MessageCreator;
 class UserRegistrationController extends AbstractController {
 
 	public function register(Request $request, MessageCreator $messageCreator, \Swift_Mailer $mailer) {
-		//Actually handle registration here..
+		// Actually handle registration here..
 		$user = $this->registerUser($request);
 
 		$templateData = [
@@ -195,9 +195,9 @@ class UserRegistrationController extends AbstractController {
 		];
 		$message = $messageCreator->createMessage('user/registered', $request->getLocale(), $templateData);
 
-		//Set these..
-		$message->setFrom($senderAddress);
-		$message->setTo([$receiverAddress]);
+		// Set these..
+		$message->from($senderAddress);
+		$message->to($receiverAddress);
 
 		$mailer->send($message);
 	}

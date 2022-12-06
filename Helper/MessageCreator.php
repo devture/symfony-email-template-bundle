@@ -2,21 +2,15 @@
 namespace Devture\Bundle\EmailTemplateBundle\Helper;
 
 use Devture\Component\DBAL\Exception\NotFound;
+use Symfony\Component\Mime\Email;
 
 class MessageCreator {
 
-	private $factory;
-	private $twig;
-	private $wrappingTemplatePath;
-
 	public function __construct(
-		TemplateRendererFactory $factory,
-		\Twig\Environment $twig,
-		string $wrappingTemplatePath
+		private TemplateRendererFactory $factory,
+		private \Twig\Environment $twig,
+		private string $wrappingTemplatePath,
 	) {
-		$this->factory = $factory;
-		$this->twig = $twig;
-		$this->wrappingTemplatePath = $wrappingTemplatePath;
 	}
 
 	/**
@@ -32,7 +26,7 @@ class MessageCreator {
 	 * @throws \Devture\Bundle\EmailTemplateBundle\Exception\TemplateSyntaxException
 	 * @throws \Twig\Error\RuntimeError - if template rendering fails (missing variables, etc.)
 	 */
-	public function createMessage(string $templateId, string $localeKey, array $templateData): \Swift_Message {
+	public function createMessage(string $templateId, string $localeKey, array $templateData): Email {
 		$renderer = $this->createRendererById($templateId, $localeKey, /* $allowFallbackLocale */ true);
 		return $this->createMessageByRenderer($renderer, $localeKey, $templateData);
 	}
@@ -40,7 +34,7 @@ class MessageCreator {
 	/**
 	 * @throws \Twig\Error\RuntimeError - if template rendering fails (missing variables, etc.)
 	 */
-	public function createMessageByRenderer(TemplateRenderer $renderer, string $localeKey, array $templateData): \Swift_Message {
+	public function createMessageByRenderer(TemplateRenderer $renderer, string $localeKey, array $templateData): Email {
 		//Let's make sure we pass the localeKey to the templates,
 		//as they may wish to include other templates.. Which can only be done if this is available.
 		$templateData['localeKey'] = $localeKey;
@@ -57,10 +51,11 @@ class MessageCreator {
 		$html2Text = new \Html2Text\Html2Text($html);
 		$plainText = $html2Text->getText();
 
-		$message = new \Swift_Message();
-		$message->setSubject($subject);
-		$message->setBody($html, 'text/html');
-		$message->addPart($plainText, 'text/plain');
+		$message = new Email();
+		$message->subject($subject);
+
+		$message->html($html);
+		$message->text($plainText);
 
 		return $message;
 	}
