@@ -27,25 +27,44 @@
 						$(this).attr('id', 'textarea_' + idx);
 					}
 
-					CKEDITOR.replace($(this).attr('id'), {
-						"entities": false,
-						"basicEntities": false,
-						"language": {{ app.request.locale|json_encode|raw }}
-					});
+					let $textarea = $(this);
+
+					$textarea.addClass('d-none');
+
+					let ckEditorElementId = 'ckeditor-' + $textarea.attr('id');
+
+					$('<div id="' + ckEditorElementId + '"></div>').html($(this).val()).insertAfter($(this));
+
+					let $ckEditorElement = $('#' + ckEditorElementId);
+
+					ClassicEditor
+						.create($ckEditorElement[0])
+						.then(editorInstance => {
+							var syncToFormField = function () {
+								$textarea.val(editorInstance.getData());
+							};
+
+							editorInstance.model.document.on('change:data', function () {
+								syncToFormField();
+							});
+						})
+						.catch(error => {
+							console.error( error );
+						});
 				});
 			};
 
-			if (typeof(CKEDITOR) !== 'undefined') {
+			if (typeof(ClassicEditor) !== 'undefined') {
 				initializeCkEditor();
 				return;
 			}
 
 			if (typeof(comploader) !== 'undefined') {
-				comploader.load('ckeditor4', initializeCkEditor);
+				comploader.load('ckeditor5', initializeCkEditor);
 				return;
 			}
 
-			throw new Error('Neither CKEDITOR, nor comploader were found on the page');
+			throw new Error('Neither ClassicEditor (CKEditor), nor comploader were found on the page');
 		})();
 	{% endblock devture_email_template_js_editor_init %}
 {% endblock devture_email_template_tab_javascript %}
