@@ -1,5 +1,5 @@
 {% macro article_subject(entity, form, editable, localeKey) %}
-<div class="form-group row">
+<div class="form-group row mb-2">
 	<label class="col-lg-2"><i class="devture-email-template-flag {{ localeKey }}"></i> {{ ("devture_email_template.subject")|trans }}</label>
 	<div class="col-lg-10">
 		<input type="text" name="subject[{{ localeKey }}]" id="subject_{{ localeKey }}"
@@ -12,7 +12,7 @@
 {% endmacro %}
 
 {% macro article_content(entity, form, editable, localeKey) %}
-<div class="form-group row">
+<div class="form-group row mb-2">
 	<label class="col-lg-2"><i class="devture-email-template-flag {{ localeKey }}"></i> {{ ("devture_email_template.content")|trans }}</label>
 	<div class="col-lg-10">
 		<textarea class="form-control js-devture-email-textarea-ckeditor js-skip-autoresize" data-height="350" name="content[{{ localeKey }}]" id="content_{{ localeKey }}"
@@ -25,7 +25,7 @@
 {% endmacro %}
 
 {% macro article_memo(entity, form, editable, localeKey) %}
-	<div class="form-group row">
+	<div class="form-group row mb-2">
 		<label class="col-lg-2"><i class="devture-email-template-flag {{ localeKey }}"></i> {{ ("devture_email_template.memo")|trans }}</label>
 		<div class="col-lg-10">
 			<input type="text" name="memo[{{ localeKey }}]" id="memo_{{ localeKey }}"
@@ -54,7 +54,7 @@
 
 		<fieldset>
 		{% block devture_email_template_fieldset %}
-			<div class="form-group row">
+			<div class="form-group row mb-2">
 				<label class="col-lg-2">{{ ('devture_email_template.id')|trans }}</label>
 				<div class="col-lg-10">
 					<input type="text" style="width: 50%;" name="id" id="id" value="{{ entity.id }}" class="form-control"

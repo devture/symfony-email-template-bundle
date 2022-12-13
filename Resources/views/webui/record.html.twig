@@ -7,7 +7,7 @@
 		</li>
 
 		{% if isAdded %}
-			<li class="breadcrumb-item active">{{ entity.id }}</li>
+			<li class="breadcrumb-item active"><code>{{ entity.id }}</code></li>
 		{% else %}
 			<li class="breadcrumb-item active">{{ 'devture_email_template.add_new'|trans }}</li>
 		{% endif %}
