@@ -7,25 +7,16 @@ use Devture\Bundle\EmailTemplateBundle\Repository\EmailTemplateRepositoryInterfa
 
 class TemplateRendererFactory {
 
-	private $repository;
-
-	private $fallbackLocaleKey;
-
-	private $twigDebug = false;
-
 	/**
 	 * @var \Twig\Extension\ExtensionInterface[]
 	 */
-	private $twigExtensions = array();
+	private $twigExtensions = [];
 
 	public function __construct(
-		EmailTemplateRepositoryInterface $repository,
-		string $fallbackLocaleKey,
-		bool $twigDebug
+		private EmailTemplateRepositoryInterface $repository,
+		private string $fallbackLocaleKey,
+		private bool $twigDebug,
 	) {
-		$this->repository = $repository;
-		$this->fallbackLocaleKey = $fallbackLocaleKey;
-		$this->twigDebug = $twigDebug;
 	}
 
 	/**
@@ -91,11 +82,8 @@ class TemplateRendererFactory {
 
 	/**
 	 * Creates and initializes the Twig environment that would render a specific template.
-	 *
-	 * @param \Twig\Loader\LoaderInterface $loader
-	 * @return \Twig\Environment
 	 */
-	private function createTwigEnvironment(\Twig\Loader\LoaderInterface $loader) {
+	private function createTwigEnvironment(\Twig\Loader\LoaderInterface $loader): \Twig\Environment {
 		$twig = new \Twig\Environment($loader, array());
 
 		//Let's make it throw exceptions whenever expected variables are missing,
@@ -126,11 +114,11 @@ class TemplateRendererFactory {
 	 *
 	 * Extenders could use this to add their own custom extensions.
 	 */
-	public function addExtension(\Twig\Extension\ExtensionInterface $extension) {
+	public function addExtension(\Twig\Extension\ExtensionInterface $extension): void {
 		$this->twigExtensions[] = $extension;
 	}
 
-	public function addExtensions(iterable $extensions) {
+	public function addExtensions(iterable $extensions): void {
 		foreach ($extensions as $extension) {
 			$this->addExtension($extension);
 		}

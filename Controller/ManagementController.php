@@ -5,21 +5,17 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Devture\Component\DBAL\Exception\NotFound;
+use Devture\Component\Form\Token\TokenManagerInterface;
 use Devture\Bundle\EmailTemplateBundle\Repository\EmailTemplateRepositoryInterface;
 use Devture\Bundle\EmailTemplateBundle\Form\EmailTemplateFormBinder;
-use Devture\Component\Form\Token\TokenManagerInterface;
-use Devture\Bundle\EmailTemplateBundle\Validator\EmailTemplateValidator;
 
 class ManagementController extends AbstractController {
 
-	private $locales;
-	private $editable;
-	private $twigLayoutPath;
-
-	public function __construct(array $locales, bool $editable, string $twigLayoutPath) {
-		$this->locales = $locales;
-		$this->editable = $editable;
-		$this->twigLayoutPath = $twigLayoutPath;
+	public function __construct(
+		private array $locales,
+		private bool $editable,
+		private string $twigLayoutPath,
+	) {
 	}
 
 	/**

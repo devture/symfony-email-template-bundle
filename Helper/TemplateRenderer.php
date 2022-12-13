@@ -3,12 +3,10 @@ namespace Devture\Bundle\EmailTemplateBundle\Helper;
 
 class TemplateRenderer {
 
-	private $twig;
-	private $templateKeyPrefix;
-
-	public function __construct(\Twig\Environment $twig, string $templateKeyPrefix) {
-		$this->twig = $twig;
-		$this->templateKeyPrefix = $templateKeyPrefix;
+	public function __construct(
+		private \Twig\Environment $twig,
+		private string $templateKeyPrefix,
+	) {
 	}
 
 	/**
