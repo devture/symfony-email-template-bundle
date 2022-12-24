@@ -6,7 +6,6 @@ use Devture\Bundle\EmailTemplateBundle\Validator\EmailTemplateValidator;
 
 class EmailTemplateFormBinder extends LocalizedSetterRequestBinder {
 
-
 	public function __construct(EmailTemplateValidator $validator, array $locales) {
 		$localeKeys = array_map(function (array $localeData): string {
 			return $localeData['key'];
@@ -20,7 +19,7 @@ class EmailTemplateFormBinder extends LocalizedSetterRequestBinder {
 	 * @param Request $request
 	 * @param array $options
 	 */
-	protected function doBindRequest($entity, Request $request, array $options = array()) {
+	protected function doBindRequest(object $entity, Request $request, array $options = []) : void{
 		$whitelisted = array('subject', 'content', 'memo');
 		$this->bindWhitelisted($entity, $request->request->all(), $whitelisted);
 

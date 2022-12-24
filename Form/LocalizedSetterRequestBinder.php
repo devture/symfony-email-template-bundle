@@ -13,7 +13,7 @@ abstract class LocalizedSetterRequestBinder extends SetterRequestBinder {
 		$this->localeKeys = $localeKeys;
 	}
 
-	protected function bindAll($entity, array $values) {
+	protected function bindAll(object $entity, array $values): void {
 		foreach ($values as $key => $value) {
 			$setter = 'set' . ucfirst($key);
 			if (!method_exists($entity, $setter)) {
