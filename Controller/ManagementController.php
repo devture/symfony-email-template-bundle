@@ -18,9 +18,7 @@ class ManagementController extends AbstractController {
 	) {
 	}
 
-	/**
-	 * @Route("/manage", name="devture_email_template.manage", methods={"GET"})
-	 */
+	#[Route('/manage', name: 'devture_email_template.manage', methods: ['GET'])]
 	public function index(Request $request, EmailTemplateRepositoryInterface $repository) {
 		return $this->render('@DevtureEmailTemplate/webui/index.html.twig', [
 			'editable' => $this->editable,
@@ -29,9 +27,7 @@ class ManagementController extends AbstractController {
 		]);
 	}
 
-	/**
-	 * @Route("/add", name="devture_email_template.add", methods={"GET", "POST"})
-	 */
+	#[Route('/add', name: 'devture_email_template.add', methods: ['GET', 'POST'])]
 	public function add(
 		Request $request,
 		EmailTemplateRepositoryInterface $repository,
@@ -65,9 +61,7 @@ class ManagementController extends AbstractController {
 		]);
 	}
 
-	/**
-	 * @Route("/edit/{id}", name="devture_email_template.edit", methods={"GET", "POST"}, requirements={"id": ".+"})
-	 */
+	#[Route('/edit/{id}', name: 'devture_email_template.edit', methods: ['GET', 'POST'], requirements: ['id' => '.+'])]
 	public function edit(
 		Request $request,
 		string $id,
@@ -107,9 +101,7 @@ class ManagementController extends AbstractController {
 		]);
 	}
 
-	/**
-	 * @Route("/delete/{id}/{token}", name="devture_email_template.delete", methods={"POST"}, requirements={"id": ".+"})
-	 */
+	#[Route('/delete/{id}/{token}', name: 'devture_email_template.delete', methods: ['POST'], requirements: ['id' => '.+'])]
 	public function delete(
 		Request $request,
 		string $id,
